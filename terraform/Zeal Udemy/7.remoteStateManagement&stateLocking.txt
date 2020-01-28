@@ -1,0 +1,56 @@
+remote state management
+================
+should not store password in terraform  files call from other file like {password=FromTestFile}
+But passwords are stored in the terraform.tfstate so make a standerd backend and extened backend
+
+
+standered backend:state storing and locking
+extend backend: feauthers of standered + remote management
+
+better to take backup in s3 from s3 terraform.tfstate file will work 
+#https://www.terraform.io/docs/backends/types/s3.html
+
+
+Add File to Code
+backend.tf
+==========
+terraform {
+  backend "s3" {
+    bucket = "mybucket"
+    key    = "NamewithWhichtoSave.tfstate"
+    region = "us-east-1"
+  }
+}
+
+access_key / AWS_ACCESS_KEY_ID - (Optional) AWS access key.
+secret_key / AWS_SECRET_ACCESS_KEY - (Optional) AWS secret access key.
+
+Note: here no terraform.tfstate will be , stored in s3 only
+
+stateLocking
+==============
+personA: terminating RDS
+personB: Incresing RDS           At a same time then terraform state file will corrept
+
+personA can execute but not second not personB
+
+By default Remote state managemend is not having statelocking .In aws we can do
+create Dynomo Db:
+TableName:s3-state-lock
+PrimaryKey: LockId	(mandatery)
+
+backend.tf
+==========
+terraform {
+  backend "s3" {
+    bucket = "mybucket"
+    key    = "NamewithWhichtoSave.tfstate"
+    region = "us-east-1"
+    dynamodb_table = "s3-state-lock"
+  }
+}
+
+dynamodb_table - (Optional) The name of a DynamoDB table to use for state locking and consistency. The table must have a primary key named LockID. If not present, locking will be disabled.
+
+
+In items ---> teraform.tfstate will be there only at the time of terraform plan only

@@ -1,0 +1,91 @@
+#https://www.terraform.io/docs/providers/aws/r/eip.html
+
+Output --> total output of reference of all attributes
+Attribute ---> ouput the only specific vaule of output
+
+example
+===========================================
+provider "aws" {
+  region     = "us-west-2"
+  access_key = "PUT-YOUR-ACCESS-KEY-HERE"
+  secret_key = "PUT-YOUR-SECRET-KEY-HERE"
+}
+
+resource "aws_eip" "lb" {
+  vpc      = true
+}                                     ========>reference aws_eip.lb---> totaloutput     attribute--->aws_eip.lb.attribute
+
+output "eip" {
+  value = aws_eip.lb
+}
+
+resource "aws_s3_bucket" "mys3" {
+  bucket = "kplabs-attribute-demo-001"
+}					========>reference aws_s3_bucket.mys3---> totaloutput     attribute--->aws_s3_bucket.mys3.attribute
+
+output "mys3bucket" {
+  value = aws_s3_bucket.mys3
+}
+
+example-2
+==========
+
+resource "aws_instance" "web" {
+  ami               = "ami-21f78e11"
+  availability_zone = "us-west-2a"
+  instance_type     = "t1.micro"
+
+  tags = {
+    Name = "HelloWorld"
+  }
+}
+
+resource "aws_eip" "example" {
+  vpc = true
+}
+
+
+# assosiating output of eip to ec2
+
+resource "aws_eip_association" "eip_assoc" {
+  instance_id   = "${aws_instance.web.id}"
+  allocation_id = "${aws_eip.example.id}"
+}
+
+---------------------------------
+if you want to change the values in total code refer to a varible and change varible value, It will change the all values in terraform code
+
+
+exampl-3
+============
+resource "aws_security_group" "var_demo" {
+  name        = "kplabs-variables"
+
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = [var.vpn_ip]
+  }
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = [var.vpn_ip]
+  }
+
+  ingress {
+    from_port   = 53
+    to_port     = 53
+    protocol    = "tcp"
+    cidr_blocks = [var.vpn_ip]
+  }
+}
+
+
+varible.tf
+===========================================
+varible "vpn_ip"{
+	default = "0.0.0.0/0" <-- change value here changes in code
+}

@@ -1,0 +1,79 @@
+Handling AccesKey And SecurityKey
+=================================
+aws configure
+you should have the region part
+
+
+????    #only one configuration for provider
+resource ec21====> us-east-1
+resource ec22====> us-west-1
+
+#https://www.terraform.io/docs/providers/aws/r/eip.html
+provider.tf
+======
+provider "aws" {
+  version = "~> 2.0"
+  region  = "us-east-1"
+}
+
+provider "aws" {
+  version = "~> 2.0"
+  region  = "us-east-1"
+  alias = "mumbai"                ***************************
+}
+
+resouce.tf
+===========
+resource "aws_eip" "lb" {
+  instance = "${aws_instance.web.id}"
+  vpc      = true
+}
+
+resource "aws_eip" "lb" {
+  provider = "aws.mumbai"                        ****************  
+  instance = "${aws_instance.web.id}"
+  vpc      = true
+
+}
+
+????
+resource ec21====> account1
+resource ec22====> account2
+
+(use profile) in provider terraform file
+provider "aws" {
+  version = "~> 2.0"
+  region  = "us-east-1"
+  alias = "mumbai"                ***************************
+  profile = "account2"            ***************************
+}
+
+
+
+terraform Sts 
+============================
+Asume Role: one iam (access key & SecreateKey )  ====> many aws account
+
+
+The nested assume_role block supports the following:
+
+role_arn - (Required) The ARN of the role to assume.
+
+session_name - (Optional) The session name to use when making the AssumeRole call.
+
+external_id - (Optional) The external ID to use when making the AssumeRole call.
+
+policy - (Optional) A more restrictive policy to apply to the temporary credentials. This gives you a way to further restrict the permissions for the resulting temporary security credentials. You cannot use the passed policy to grant permissions that are in excess of those allowed by the access policy of the role that is being assumed.
+
+
+provider
+========================
+provider "aws" {
+  region  = "us-east-1"
+  assume_role{
+  role_arn = "" --->get from aws iam
+  session_name = "" --->
+   }
+}
+
+

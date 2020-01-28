@@ -1,0 +1,79 @@
+#https://www.terraform.io/docs/providers/aws/r/instance.html
+
+Provider
+===========
+depending on provider with token
+
+aws --> acceskey secreatkey
+bitbucket--> username,password
+
+Resource
+==========
+individuel service which provider offer
+aws_instances, aws_alb, aws_vpc, aws_iam
+
+
+ec2_example
+==========
+resource "aws_instance" "web" {   ===> resource name---> "aws_instance","web"---> name
+  ami           = "AmiID"
+  instance_type = "t2.micro"
+
+  tags = {
+    Name = "HelloWorld"
+  }
+}
+
+refer by aws_instance.web		***********************
+
+
+************know after apply stores in terraform.tfstate*********************************
+
+change t2.micro---> t2.nanao
+
+terraform plan=====> 
+
+~ instance_type = "t2.nano" --> "t2.micro"
+
+******************************plan: 0 to add, 1 to change, 0 to destroy******************** 
+
+
+terraform destroy -target aws_instance.web
+
+or commit  to destroy
+/*
+
+
+*/ 
+
+In arguments there is optional and manadatery. Make sure Manadatery should be there
+
+
+
+understandingStateFile
+=======================
+Stores the info of infrastrure by tf files
+
+Desiredstate & CurrentState
+===============================
+~ instance_type = "t2.nano" --> "t2.micro"
+
+Desiredstate: "t2.nano"
+CurrentState: "t2.micro"
+
+
+************************terraform refresh ---> try to match current state with desired state
+when you apply terraform apply it first try terraform refresh
+
+
+****************
+if you change sg of ec2 and terraform apply then there will be no change
+
+eariler: default
+now: kplaps
+
+which is not mentioned in the  code or tf files terrform will not considered as desired or current state
+**********************************************
+terraform show--->shows output in key:value
+
+

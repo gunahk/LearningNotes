@@ -1,0 +1,106 @@
+#https://registry.terraform.io/modules/terraform-aws-modules
+
+DRY--Donot Repeat yourSelf
+
+=====================================================================================
+	Source		<------------------------------   module
+	{}
+	{}
+	{}
+resource "aws_instance" "web" {   
+  ami           = "AmiID"
+  instance_type = "t2.micro"
+
+  tags = {
+    Name = "HelloWorld"
+  }
+============================================================================================
+directory
+	Module(dir)--
+		-ec2(Dir)
+			ec2.tf(file)
+	Project(dir)--
+		-a.tf(file)
+		-b.tf(file)	
+
+===========================================================================================
+ec2.tf
+=========
+resource "aws_instance" "web" {   
+  ami           = "AmiID"
+  instance_type = "t2.micro"
+
+  tags = {
+    Name = "HelloWorld"
+  }
+
+in Projecct/a
+==============
+myEc2.tf
+=====
+module "ec2module" {
+ source ='../../module/ec2'
+}
+
+challenges  ????
+============
+staging 	instance_type= t2.micro
+prod		instance_type= m5.large
+
+if we mention instance_type = m5.large in myEc2.tf then will get error so inorder to change values acording to env make varible file and call from that file
+
+ec2.tf
+=========
+resource "aws_instance" "web" {   
+  ami           = "AmiID"
+  instance_type = var.instance_type
+
+  tags = {
+    Name = "HelloWorld"
+  }
+
+in Projecct/a
+==============
+myEc2.tf
+-------------------
+module "ec2module" {
+ source ='../../module/ec2'
+}
+
+varible.tf
+-------------------
+var.instance_type=m5.large 
+
+#https://www.terraform.io/docs/state/workspaces.html
+wokspace(diffaret configuration has differnt workspaces)
+=========
+default
+dev
+prod
+
+
+terraform workspace show-->shows in which workspace are there
+terraform workspace list-->shows all the workspace
+terraform workspace new dev--> create the new workspace dev
+terraform workspace new prd-->create the new workspace prd
+terraform workspace select dev--> switch to dev workspace
+
+ec2.tf
+===========
+resource "aws_instance" "web" {   
+  ami           = "AmiID"
+  instance_type = "${lookup(var.instance_type, terraform.workspacec)}"   **************************************************
+  tags = {
+    Name = "HelloWorld"
+  }
+
+var.tf
+--------
+variables "instance_type"{
+ type="map"
+ default="t2.nano"
+ dev="c5.large"
+ prd="m4.large"
+} 
+
+terraform ---> terraform will create terrafom.tf(dir) in that directory it will create folders (default,dev,prd) and apprate folders tf state files will be there

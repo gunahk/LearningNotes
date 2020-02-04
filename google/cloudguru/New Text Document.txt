@@ -1,0 +1,61 @@
+1 seeting cloud projects and acoounts
+2 managing billing
+3 installing and configure
+
+private global network-->Points of Presence --> Network edges and CDN locations
+
+AWS --> routes via internet to edge loaction to close destination
+Google --> routes via edge location at source 
+
+***************single ip address can load balence worldwide
+pricing --> Provised,Usage,Network traffic (outside to  world egress)
+
+project with (Name with ID ) is unique, you cannot use it anywhere in GCP account
+projects -- > aws acounts,
+projects can be and controlled hierarchy
+user can assign to the particular project.
+
+
+
+Free tier(billing is not done untill you have upgraded & using below free tier limits)
+big query enable
+======================
+billing export to the big query, can access your billing from BigQuery 
+Export must be setup to the each billing acount
+Billing export is not real time  
+
+budget alert (after 5% 10 % 50 % 100% amount)
+======================================================
+Note: it will just send message only donot do anything
+
+Billing-->Budget and alerts(left side) ---> configure settings
+
+Role: Billing Account user
+level: organation or billing accounts 
+Note: he can build new projects or use only existing projects
+
+
+Google cloud shell === awscli
+**%gb of persistence storage
+**Easy access to pre installed tools like kubectl,python,vim  etc...
+
+**************gcloud config set project********************** to swith to the other project
+
+Boost mode--->more CPU or memory resources for a relatively short period of time.(24 hours)
+
+cloudshell --> 5 gb persistance disk along all regions 
+
+Moving			network
+processing		cpu
+remembering		storage
+
+chmod +x gcp-cloud-engineer/update.sh  ---> to get git upodated data into locally
+
+ 
+
+
+
+
+
+
+

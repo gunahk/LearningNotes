@@ -1,0 +1,14 @@
+https://docs.ansible.com/ansible/latest/user_guide/intro_adhoc.html
+
+*********ansible [pattern] -m [module] -a "[module options]"
+
+[pattern]--> inventory file or name
+
+[module]---> ping,setup
+ 
+-a (arguments)--->inputs(name,state)
+
+examples:
+
+ansible all -m ping ---> to check connectivity
+**ansible all -m setup ---> to check info of vms

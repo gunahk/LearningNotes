@@ -1,0 +1,47 @@
+*****common Frendly name
+
+ipv4 ---> 32 bits[2power32]---> 4 billion Address
+ipv6 ---> 64 bits[2power128] ---> 
+.co.uk--->.uk top level domain,.co second level domain name
+
+****Top Level doamin are controlled by the InternetAssignedNumberAuthority(IANA)-->www.iana.org/domains/root/db
+unique-------->ICANN store in WHOIS Database
+
+StartOfAuthorityRecord(SOA)--->Name of the Server that supplied data for the zone who owns the data
+
+Nameserver---->
+TimeToLive(Default 48 hrs)---->Length of Dns Record is cached on eitherr Resloving Server or uses local computer  = Time To live in seconds
+
+
+
+A Namerecord---> transit the domain to ipAddress
+C Namerecord[conanicl Name]---> fb.com.....facebook.com
+Alias Record---> DNS target to other Resource like load
+difference Cname and Alias REcord --> *****cname cannot used for Naked Domain names
+
+An Internet domain name without the "www" or any other subdomains called Naked Domain names. 
+For example, computerlanguage.com is a naked domain but www.computerlanguage.com is not, because it contains the www subdomain. 
+See Internet domain name and subdomain
+
+Common DNS Typed -->SOA Records,NS records,A Records,CNames,MX Records (Main exchange), PTR Records
+
+
+Routing Policies
+==================
+simple Routing   -------->one Record with multible IP adress
+Weighted Routing -------->20% traffic to us-east-1 ,80% traffic to us-east-2
+Latency-Based-routing---->based lowest latency routes, IndianUser----> R53--------> N.Virgin 
+    							    		   --------> mumbai         which as lowest latency will routes through it 	
+FailOver Routing	-------------> Cheks health if not health routes to the health(active and passive site) +++++++  r53---> n,virgin failes routes to  the mubai
+GeoLocation routing     -------------> Routing Based on geo graphical location indianUser--->R53--->mumabi
+										UsaUserr--->R53 --->n.virgina
+GeoProximity Routing	------------> Traffic flow routing very complicated
+MultiVaule Answer routing
+
+Health check
+===========
+
+
+
+
+

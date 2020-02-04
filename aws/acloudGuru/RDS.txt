@@ -1,0 +1,24 @@
+ID	f.Name	S.Name	SEx	Age
+1	guna	hk	M	27   --> consistency all over database
+
+Tables
+
+2 key features--> 
+multi AZ (Disaster Recovery)-->Failover is automatic in multi az
+Read replica-->(Performance) decrese the heavy load to the primary RDS, (Max 5 read replicas)
+
+
+Non Relational
+=========================
+collection= table
+Document = Row
+key = value
+{
+"id":"1"
+}
+
+
+
+
+
+

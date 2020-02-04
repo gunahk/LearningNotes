@@ -1,0 +1,35 @@
+vm instances
+=============
+compute engine docs
+===========
+#https://cloud.google.com/compute/docs/disks/
+Zonal standard persistent disk and zonal SSD persistent disk: Efficient, reliable block storage.
+Regional persistent disk and regional SSD persistent disk: Regional block storage replicated in two zones.
+Local SSD: High performance, transient, local block storage.
+Cloud Storage buckets: Affordable object storage.
+Filestore: High performance file storage for Google Cloud users
+
+snapshot is not avalible for local ssd
+Auto Restart--->**Due to hardware failure or system event Auto Restart try to launch new vm
+21-23 view udemy videos
+
+
+targetgroup ---> instance group
+
+Manged Instance Group--->have autoScaling, rollingUpdates, Load Balencer many vm have stateless
+UnManged Instance Group---> you has to maintain all services like autoScaling, rollingUpdates, Load Balencer
+ 
+
+Cost Effective
+==========
+			AWS			GCP
+=================================================================
+persecond billing	Yes			yes
+Discounts		Spot			preemptable(24hrs)
+Discounts		Reserved		Committed Use
+Savings			Prepay And Discount     No Prepay upto 80%
+
+Recommandations--->take upto 6-8 days to suggest based on workloads,
+
+
+

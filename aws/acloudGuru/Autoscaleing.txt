@@ -1,0 +1,7 @@
+*********auto scaling group add all subnets so that new instances will be distributed along all subnets
+
+1.launch configuration--> creating ec2 config
+2.Autoscacling Group-->
+Auto scacling group --> give launch configuration
+scaling policies --> avg cpu,avg ntw in, avg ntw out, alb request per targete
+Notification--> 

@@ -1,0 +1,25 @@
+Manged service
+paas--->0 to 100 no need to manage
+
+deploy in one region availble across zones(Cant change the region)
+supports spring Framework,MemCache, SLA, all language
+
+**clould Security Scacnner--->TO know security problems
+
+Storing Data
+============
+Google Cloud DataStore for schemaless data -->NoSQl
+Google Cloud Storage for files 
+Google Cloud Storage RDS like mysql
+connect 3rd party tool like MangoDB,PostgreSQl etc..
+
+
+************Scaling --> Manual,basic,Automatic********************
+
+AppEngine(A/B testing)
+
+
+SplintTraffic--->IP address, Cookie, Random 
+
+
+

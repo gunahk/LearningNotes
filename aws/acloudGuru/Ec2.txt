@@ -1,0 +1,11 @@
+price
+====
+ONdemand(default):short time , Spicky , unpredittable instances
+reserved(Contract 1-3 years):StedyState,PredittableCapacity
+	1.standerd: all time same specs
+	2.Convertable: change instance types
+	3.scheduled: used for particular time
+spot(Binding):flexible start and end.
+Dedicated Hosts:Regulatior Requirment
+
+

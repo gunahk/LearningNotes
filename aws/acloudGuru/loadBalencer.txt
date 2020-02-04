@@ -1,0 +1,24 @@
+NLB---> best for TCp traffic where extreme performance(m/s ultra low latency)
+ALB--> Advanced routing (based on language,path based, host based)
+CLB-->(Htttp/https/tcp/udp) have X-forworder and sticky sessions
+
+error 504 --> gatwaytimeout, ec2 instance not responding
+
+X-forder-for header
+====================
+public----> LB ---> ec2
+identify the public ip adress use x-forder
+
+Advanced Load BAlencer
+==================
+StickSession---->bindind the user to stick to the particular ec2 on that session(ueseerr may use some data in ec2 )
+
+r53-->  50%  lb1 --> 4ec2  each ec2 (12.5)
+	50%  lb2 --> 1 ec2 each ec2 (50)
+
+Cross zone -->
+	50%  lb1 --> 4ec2  each ec2 (20)
+	50%  lb2 --> 1 ec2 each ec2 (20)
+
+
+ 

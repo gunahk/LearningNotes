@@ -1,0 +1,6 @@
+VariablePrewsidence(priroty)
+===============================
+1.Extra vars
+2.Task vars
+3.Block vars
+4.Role and 

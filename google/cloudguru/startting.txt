@@ -51,6 +51,11 @@ remembering		storage
 
 chmod +x gcp-cloud-engineer/update.sh  ---> to get git upodated data into locally
 
+gcloud config get-value project  --> to see in which project are in (Top shellName we can able to see) --> gcloud 
+gcloud services list --> what are the serveices avaliable
+
+
+
  
 
 

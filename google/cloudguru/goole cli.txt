@@ -1,0 +1,42 @@
+gsutil --> gcloud storage
+bq --> big query
+
+gcloud <glabal flab> <service/products> <group/area> <command> <flag> <parameters>
+
+gcloud --project=myown compute instances list
+0r
+gcloud config project
+gcloud  compute instances list
+
+#gcloud utill commands
+--quiet flag (also, -q) to disable promting
+--no-user-output-enabled flag. --> to surpress the output
+--verbosity --> logs
+--formate [json, yaml, csv ]
+--help or -h (less)
+
+
+******set properties in gcloud so that default value will be set to varible (ex: --zone)
+core/account --> --account
+core/project --> --project 
+compute/region --> region
+
+
+set--> gcloud config set <property> <vaule>
+get--> gcloud config get-value <property> <vaule>
+clear --> gcloud config unset <property> <vaule>
+
+gcloud init --> ask configuration promted
+gcloud config list --> list all properties
+gcloud config configuration list --> list all configuration
+
+****************profile in aws
+gcloud config configuration create myName
+gcloud config configuration activate myName or just use --congiguration=myName
+gcloud config ls
+
+
+
+Scripting gcloud
+#https://cloud.google.com/sdk/docs/scripting-gcloud
+

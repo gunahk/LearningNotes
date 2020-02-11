@@ -1,0 +1,107 @@
+security(CIA and AAA)
+===========================
+***CIA - confidential Integrtatity and Avalibility of data
+
+***Ensured proper data flow
+
+***AAA--> authenticating,Autorization,Accounting(what u have done)
+
+Key security mindset
+==============
+least privalege
+Defence in depth
+fail securly
+
+**Identy --> Gsuit
+**Application and servoices use service Acount
+
+Groups
+=============
+identity hierarchy (google group)
+resource hiearchy ( Organization, folder , Projects)  --> permision,roles, bindings
+Google buckets (ACL -- Access Control list)
+
+
+Audit/Activity --> stackdrive
+
+hiearchy
+=============================
+organization
+
+folders
+
+projects
+
+resources
+==============================
+
+permission
+===========
+seervice.resource.pub --> pubsub.subscription.consume
+			  pubsub.topics.publish
+
+Roles --> collection of permission
+Primitive Role --> total project is haveing permission
+	view,editor,owner
+predifined Roles --> Give Granular access to spefic resource
+custom role --> in projects giving only certain permissions
+
+AdminRole:Read/write/modify
+ServiceAcoountRole: Read/write/ canot deploy new version
+appEngineRole: 
+../IamImage
+
+members
+===============
+user: 
+serviceAccount:
+Group:  --> 
+Domain: whole Domain managed by gamil,organization
+AllAuthenticatedUser:Any google account
+allusers:Any one on 
+=============================================================================================
+
+setIamPolicy(): Sets policies on your resources.
+getIamPolicy(): Gets a policy that was previously set.
+testIamPermissions(): Tests whether the caller has the specified permissions for a resource.
+==============================================================================================
+
+policy bind the members to role for some scope of resources
+
+one policy perr resource (take 60s both granting revoking)
+
+prefer add remove over get,set
+
+gcloud [Group] add-iam-policy-binding [resourdce-name] -- role [role to grant] --member user:[usermail]
+
+gcloud [Group] add-iam-policy-binding [resourdce-name] -- role [role to remove] --member user:[usermail]
+
+Atomic operations : ????
+
+#https://cloud.google.com/billing/docs/how-to/billing-access
+=======================================================================================================================
+Billing Account Creater: create a bill accounts(organation level) 
+Billing Account Administrater: admin to the particular account only(billing level)
+Billing Account User: user in the billing(billing level)
+Billing Account viewer: able to see onl;y bills
+project Account manager: link/delink projects to the bills(project level)
+
+
+one has poject account manager at project level to add to billing && \
+same has to be at billing level to add to the billing
+
+Monthly invoce monthly
+================================
+determine monthly,switch to the monthly --> depends on account age,country,typicall mointhly spend
+
+
+senoria small to medium
+=================================
+CEO		Manage payment (view and approval)	billing Mangement Admin
+CTO		budget alarms,view spent,Create new bills	project creater, billing management
+DEVOLoper
+
+
+
+
+

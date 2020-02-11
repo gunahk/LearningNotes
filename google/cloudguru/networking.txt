@@ -1,0 +1,55 @@
+Latency reduction
+Load Balencer
+System design
+
+unicast	: only one unique ip addres to send(ec2)
+Anycast : Many ip adredd to 
+
+premieum tier --> cold potato see image 
+
+
+VPC
+=======
+subnets --> Automatic 2.Custom
+
+Automatic --> if any now zone is added then the 
+
+firewallRules
+===============
+my-auto-vpc-allow-icmp
+my-auto-vpc-allow-interner
+my-auto-vpc-allow-RDP
+my-auto-vpc-allow-SSH
+my-auto-vpc-allow-ingress----default deny
+my-auto-vpc-allow-egress----default deny
+
+
+
+Dynamic Routing --- ?????? Regional,Global
+
+Automatic mode vpc is similar to default VPC
+
+Custom vpc
+==============
+Name:
+IP Adress Range:
+Private Google Access : Radio --> ON/OFF
+Flow Logs: 
+
+
+in Iam roles sesarch type=*writer then we can add all permision to it **disadvantages == if new policy is got then it is not automatically added
+
+in google firewall will be ther only on vpc level, check ininstance network tag if not any add one firefall (Note: if restarted firewall will be gone)
+
+ 
+
+
+
+
+
+
+
+
+
+
+

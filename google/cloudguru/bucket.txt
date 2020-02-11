@@ -1,0 +1,32 @@
+buckerName--> uniqe to all google buckets
+
+multi-Regional-->
+regional-->objects can be access only to the region 
+nearline-->regional,multiregional
+coldline-->regional,multiregional
+
+encryption --> google managed key, Customer managed key
+
+*********************regional canot become multi regional and multi regional canot become regional 
+
+
+if you want to make bucket public just add in users add "allusers"
+
+
+ https://alexisperrier.com/gcp/2017/11/02/gsutil-cheatsheet.html
+
+gsutil ls
+gsutil bucket --help
+gsutil mb gs://<BucketName>
+gsutil rm gs://<BucketName>
+gsutil cp
+gsutil rm
+gsutil acl ch -u Allusers:R gs://bucketaname/fileName 
+R--> read access 
+u--> users
+acl-->acess controll list
+
+
+gcloud config get-value project --> to get what project you are working 
+
+ 

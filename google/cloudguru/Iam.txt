@@ -1,0 +1,10 @@
+one resource communicate  with other resource by service acoount 
+
+service account and scope with token can communcate with the other resource
+
+*******scope --> posibility to  do something
+
+in scope API calls --> select the service which they can communicate
+
+
+

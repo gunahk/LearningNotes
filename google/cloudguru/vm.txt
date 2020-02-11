@@ -1,0 +1,31 @@
+#gcloud utill commands
+--quiet flag (also, -q) to disable promting
+--no-user-output-enabled flag. --> to surpress the output
+--verbosity --> logs
+--formate [json, yaml, csv ]
+
+Scripting gcloud
+#https://cloud.google.com/sdk/docs/scripting-gcloud
+
+Name: uniquename which you canot modify (instanceId)
+metadata: --> key: value which you will able give variable to the instances
+
+
+instance Group
+
+Instance Group
+=========================
+cold down period >>>>> instance bootup time
+warmupinstance == cold down period
+
+
+
+instance template is same as compute engine here only region and az is only missing which you have to mention when launching template
+
+unmanagedinstanceGroup cannot be multizone (sigle zone only), add vms 
+MangeedInstanceGroup --> Multizone canbe maintanble,  add vm template
+
+
+Autoscaling --> CPU utilization,Http load Balencing,stack driver metric
+
+

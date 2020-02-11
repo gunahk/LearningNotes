@@ -1,0 +1,3 @@
+signedurl--> withlogin only we can able to download otherwise we cant download
+signedsession --> in one page we can have many link to other pages, if we login in one page then then there is no need of enable in all pages 
+tenancy --> possession of land or property as a tenant

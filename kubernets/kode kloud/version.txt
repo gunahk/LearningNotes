@@ -1,0 +1,35 @@
+kube api server			(+ X )				1.10
+
+
+control manager 		scheduler		(X-1)   1.9
+
+
+kubelet 			kubeproxy		(X-2)  	1.8			kubectl  (X+1 or X-1) 1.11/1.9
+
+
+
+latest 3 releases are only supported
+=======================================
+if you are in 1.10 untill 1.12 you can upgrade.if new version 1.13 is released then you cannot upgrade
+
+you can upgrade one version at a time only
+
+
+
+Managed --> update in fewclicks
+kubeadm --> update require many clicks
+
+master --> 
+===========
+down the master node update the components add to the cluster. 
+until this time pod will access by the end user.
+if any pod gets deleted then pod canot be able to access nodes.
+kubectl commands wont work because master is down
+====================
+1.removee all nodes and updte all node 
+2.remove one node.update the node and add node to cluster
+3.update one node. add to cluster and remove old node
+ 
+
+
+

@@ -1,0 +1,51 @@
+etcd--->port: 2379
+
+kubectl exec -n kube-system etcdctl get / --prefix -keys-only
+
+/usr/local/bin/etcd
+
+controll manager
+====================
+watch status		
+Remediate situation
+Node Moinitor Period	= 5sec
+node moniter grace period = 40 sec
+POD evication period =5 m
+
+
+kubelet
+===========
+register nodes
+create pods (pull images)
+monitor pods and Nodes
+
+
+kubectl run --generator=run-pod/v1 nginx --image=nginx
+
+kubectl run --generator=run-pod/v1 nginx --image=nginx --dry-run -o yaml
+
+Deployment
+============
+kubectl create deployment --image=nginx nginx --dry-run -o yaml
+
+https://www.udemy.com/course/certified-kubernetes-administrator-with-practice-tests/learn/lecture/15018998#overview
+
+ kubectl run --generator=run-pod/v1 redis --image=redis:alpine -l tier=db
+
+kubectl expose pod redis --port=6379 --name redis-service
+
+kubectl create deployment webapp --image=kodekloud/webapp-color. The scale the webapp to 3 using command 
+kubectl scale deployment/webapp --replicas=3
+
+selcter for label
+=================
+kubectl get all --selector env=prod
+
+
+taints and tollents
+=========================================================================================================================================
+example: if a bug can be on man if man has some antimant then bug will not be an man --> taint
+	2. bug has capacity to be on man then bug will be on man --> tollerent
+
+kubectl taint nodes node01 spray=mortein:NoSchedule
+'kubectl taint nodes master node-role.kubernetes.io/master:NoSchedule --> to remove taint in master

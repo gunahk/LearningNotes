@@ -21,4 +21,6 @@ Cross zone -->
 	50%  lb2 --> 1 ec2 each ec2 (20)
 
 
+
+
  

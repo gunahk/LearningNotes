@@ -1,0 +1,17 @@
+Enabling Bin Packing using RequestedToCapacityRatioResourceAllocation
+=========================================================
+RequestedToCapacityRatioResourceAllocation priority function can be controlled by a configuration option called requestedToCapacityRatioArguments
+******** This argument consists of two parameters shape and resources
+
+Shape allows the user to tune the function as least requested or most requested based on utilization and score values. 
+
+Resources consists of name which specifies the resource to be considered during scoring and weight specify the weight of each resource.
+
+"requestedToCapacityRatioArguments": {
+            "shape": [
+              {"utilization": 0, "score": 0},
+              {"utilization": 100, "score": 10}
+            ],
+            "resources": [
+              {"name": "intel.com/foo", "weight": 3},
+              {"name": "intel.com/bar", "weight": 5}

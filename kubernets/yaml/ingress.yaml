@@ -1,0 +1,33 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: simple-fanout-example
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: foo.bar.com
+    http:
+      paths:
+      - path: /eat
+        backend:
+          serviceName: svc-pay
+          servicePort: 80
+
+
+app=webapp-pay
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-pay
+spec:
+  selector:
+    app: webapp-pay
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+
+

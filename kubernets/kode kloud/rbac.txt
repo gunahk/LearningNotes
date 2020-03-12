@@ -1,0 +1,4 @@
+se command line flags if they exist: --server, --certificate-authority, --insecure-skip-tls-verify.
+
+
+Use command line flags if they exist: --client-certificate, --client-key, --username, --password, --token.

@@ -1,0 +1,23 @@
+throughput --> how much data moved at a time-->  heavy load (lorry) 
+high IOPS --> how fast read and write -->  high speed (car)
+
+consistency --> ACID,Base
+
+ATOMIC --> transasition all 0r nothing
+
+Consistent --> transasition must be valid
+
+isolated --> transasition cant mess with other 
+
+Durable --> transasition must stick for time
+
+Base
+
+basic avalibility : value avalible
+soft state: 
+eventual consistence 
+
+persiistence data --> data is stick around reboots, restart
+transistence --> stored temp and transfer to other (sns, sqs)
+epherameral -->  data is lost when stoped
+

@@ -13,7 +13,7 @@ Defence in depth
 fail securly
 
 **Identy --> Gsuit
-**Application and servoices use service Acount
+**Application and services use service Acount
 
 Groups
 =============
@@ -40,7 +40,8 @@ permission
 seervice.resource.pub --> pubsub.subscription.consume
 			  pubsub.topics.publish
 
-Roles --> collection of permission
+Roles --> collection of permissions ( policy )
+
 Primitive Role --> total project is haveing permission
 	view,editor,owner
 predifined Roles --> Give Granular access to spefic resource
@@ -58,25 +59,28 @@ serviceAccount:
 Group:  --> 
 Domain: whole Domain managed by gamil,organization
 AllAuthenticatedUser:Any google account
-allusers:Any one on 
+allusers:Any one who have internet
 =============================================================================================
 
 setIamPolicy(): Sets policies on your resources.
-getIamPolicy(): Gets a policy that was previously set.
+getIamPolicy(): Gets a policy that was have been set.
 testIamPermissions(): Tests whether the caller has the specified permissions for a resource.
 ==============================================================================================
 
-policy bind the members to role for some scope of resources
+policy bind the members to role for some scope(filter) of resources.
 
-one policy perr resource (take 60s both granting revoking)
+one policy per resource (take 60s both granting revoking)
 
 prefer add remove over get,set
 
-gcloud [Group] add-iam-policy-binding [resourdce-name] -- role [role to grant] --member user:[usermail]
+gcloud [Group] add-iam-policy-binding [resourse-name] -- role [role to grant] --member user:[usermail]
 
-gcloud [Group] add-iam-policy-binding [resourdce-name] -- role [role to remove] --member user:[usermail]
+gcloud [Group] add-iam-policy-binding [resoursce-name] -- role [role to remove] --member user:[usermail]
 
 Atomic operations : ????
+
+
+example for roles
 
 #https://cloud.google.com/billing/docs/how-to/billing-access
 =======================================================================================================================
@@ -92,7 +96,7 @@ same has to be at billing level to add to the billing
 
 Monthly invoce monthly
 ================================
-determine monthly,switch to the monthly --> depends on account age,country,typicall mointhly spend
+determine cost monthly,switch to the monthly --> depends on account age,country,typicall mointhly spend
 
 
 senoria small to medium

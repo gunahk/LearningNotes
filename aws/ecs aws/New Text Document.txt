@@ -1,0 +1,24 @@
+highly scalable, performance , container management
+
+scheduling,networking --> ecs
+
+****https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html
+lifecycle -->  container agent
+active and connect-->
+active and disconnect --> container agent is stoped
+inactive -->  deregister an instance
+
+
+task defination(docker compose yaml file)
+================
+1.family --> name of td --> revision get updates
+2.
+3.
+
+#tasks states --> https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-lifecycle.html
+schedule 
+===========
+1.
+2.
+3.
+

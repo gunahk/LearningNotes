@@ -1,0 +1,94 @@
+You can see that a PVC is protected when the PVC’s status is Terminating and the Finalizers list includes kubernetes.io/pvc-protection:
+
+**********persistentVolumeReclaimPolicy: Recycle
+
+Reclaiming
+===========
+volumes can either be Retained, Recycled, or Deleted.
+
+retained: delete only pv, manully --- delete ebs volume, clean data and reuse     
+Delete: delete both pv and ebs volume
+Recycled: reclaim policy performs a basic scrub (rm -rf /thevolume/*) on the volume and makes it available again for a new claim.
+
+
+Currently, only NFS and HostPath support recycling. AWS EBS, GCE PD, Azure Disk, and Cinder volumes support deletion
+
+======================================================================================
+Support for expanding PersistentVolumeClaims (PVCs) is now enabled by default.
+
+allowVolumeExpansion field is set to true.   (file system is XFS, Ext3, or Ext4.)
+
+ExpandInUsePersistentVolumes must be true
+ File system expansion is either done when a Pod is starting up or when a Pod is running and the underlying file system supports online expansion.
+=======================================================================================
+Volume Mode : to use file system or block (volumeMode to block)
+
+Claims use the same convention as volumes to indicate the consumption of the volume as either a filesystem or block device.
+==========================================================================================
+class:
+============
+storageclass.kubernetes.io/is-default-class == true then no need to mention class
+
+storageClassName: slow
+
+A PV with no storageClassName has no class and can only be bound to PVCs that request no particular class.
+=========================================================================================
+Acees mode:
+========
+
+ReadWriteOnce – the volume can be mounted as read-write by a single node
+ReadOnlyMany – the volume can be mounted read-only by many nodes
+ReadWriteMany – the volume can be mounted as read-write by many nodes
+
+RWO - ReadWriteOnce
+ROX - ReadOnlyMany
+RWX - ReadWriteMany
+
+==============================================================================================
+volume.beta.kubernetes.io/mount-options ---> new version not created
+
+phase:
+
+Available – a free resource that is not yet bound to a claim
+Bound – the volume is bound to a claim
+Released – the claim has been deleted, but the resource is not yet reclaimed by the cluster
+Failed – the volume has failed its automatic reclamation
+
+************************************************************PersistentVolumes binds are exclusive, and since PersistentVolumeClaims are namespaced objects, mounting claims with “Many” modes (ROX, RWX) is only possible within one namespace.
+PV volumeMode	PVC volumeMode	Result
+unspecified	unspecified	BIND
+unspecified	Block	NO BIND
+unspecified	Filesystem	BIND
+Block	unspecified	NO BIND
+Block	Block	BIND
+Block	Filesystem	NO BIND
+Filesystem	Filesystem	BIND
+Filesystem	Block	NO BIND
+Filesystem	unspecified	BIND
+
+
+Volume Snapshot and Restore Volume from Snapshot Support
+================================================================================
+enable VolumeSnapshotDataSource
+
+API Objects VolumeSnapshot, VolumeSnapshotContent, and VolumeSnapshotClass are CRDs, not part of the core API.
+
+VolumeSnapshotContents are resources in the cluster. VolumeSnapshots are requests for those resources. 
+
+****************** pre-provisioned or dynamically provisioned.
+
+Persistent Volume Claim as Snapshot Source Protection
+
+If you delete a PersistentVolumeClaim API object in active use as a snapshot source, the PersistentVolumeClaim object is not removed immediately. Instead, removal of the PersistentVolumeClaim object is postponed until the snapshot is readyToUse or aborted.
+
+delete
+=======
+******DeletionPolicy is Delete, then the underlying storage snapshot will be deleted along with the VolumeSnapshotContent object. 
+******If the DeletionPolicy is Retain, then both the underlying snapshot and VolumeSnapshotContent remain.
+
+
+
+
+Volume Cloning
+===========
+

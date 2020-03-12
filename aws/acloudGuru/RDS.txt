@@ -1,11 +1,16 @@
+Databases(VMS)
+===========
 ID	f.Name	S.Name	SEx	Age
 1	guna	hk	M	27   --> consistency all over database
 
 Tables
 
 2 key features--> 
-multi AZ (Disaster Recovery)-->Failover is automatic in multi az
-Read replica-->(Performance) decrese the heavy load to the primary RDS, (Max 5 read replicas)
+multi AZ (Disaster Recovery)-->Failover is automatic in multi az (now url is manully have to update)
+Read replica(max 5)(regional)(no charge for data)-->(Performance) decrese the heavy load to the primary RDS, (Max 5 read replicas) read replca can have read replica
+
+
+performance can be increased by read replica and elastic cache
 
 
 Non Relational
@@ -16,6 +21,76 @@ key = value
 {
 "id":"1"
 }
+
+OLTP vs OLAP
+===============
+OLTP --> online transastion Process --> icci,phonepay,gpay(details os order id)
+OLAp --> online Analyitical Process --> (require all computed values at a time of milliean records)
+******AWS--Redshift for OLAP
+
+
+
+Auror --> serverless + (mysql + postgres) from mysql,postgress can create a auror
+
+backup
+===========
+automatated(default enabled) -->     at every time max 1 sec 
+manully snapshot ---> at the time of you take snapshot 
+
+multi Az --> mysql, nosql, 
+read replca --> mysql,postsql, mariadb, oracle, arora
+encription at rest -->  mysql,postsql, mariadb, oracle, arora, sql
+
+
+encription at rest --> make all read replca, snapchat, automated backup will have encription also
+
+only after getting backup(enable)  on only we can get read replica(regions level)
+
+
+DynamoDB(NO sql) ******(Serverless)
+=======
+****used for games
+stored on SSD 
+stored on 3 geographicall area
+***********************consistence reads(1 s), strong consistence reads(<1s reads), 
+
+
+Redshift(Data warehouses) 
+==========
+differnt architecture---> infrastrrure,database
+
+
+******single node(168 GB)
+******multinode --> leadedr node , computenode(120 nodes),
+
+ 
+ massive parralel process(MPP):
+
+************retation peroid 1 day (max 35 days)
+************maintain 3 copies
+************availble in one AZ, snapshot(s3 and sync with s3) and restore in other region
+
+
+Arora( default and recommended) ******(Serverless)
+==========
+5* performance , 1/10th of cost with mysql
+start 10GB ---> 64 TB (verticall scacling)
+cpu   32 GB --> 256 GB meomory
+******2 copy of data in each az with mimum 3 AZ
+ 
+
+elastic cache
+============
+elastic cache(scale horizontally) --> in memory cache (top 10 products of filpkart)---->1. mem cache 2.reddis
+
+
+reddis is advanced and have all feauture other than multi tread(mem cache)
+
+	
+
+
+
+
 
 
 

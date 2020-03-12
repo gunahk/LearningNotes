@@ -1,0 +1,96 @@
+tasks
+=============================================
+# server grafana sercver
+https://www.scaleway.com/en/docs/configure-prometheus-monitoring-with-grafana/
+
+
+https://medium.com/htc-research-engineering-blog/build-a-monitoring-dashboard-by-prometheus-grafana-741a7d949ec2
+
+#install ubuntu 18
+https://www.radishlogic.com/kubernetes/running-minikube-in-aws-ec2-ubuntu/
+
+
+hostnamectl set-hostname minikube1 
+
+hostnamectl set-hostname minikube2 
+#single grafana miniqube
+https://medium.com/@chris_linguine/how-to-monitor-your-kubernetes-cluster-with-prometheus-and-grafana-2d5704187fc8
+
+helm
+========
+curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get > get_helm.sh
+
+chmod +x get_helm.sh
+
+./get_helm.sh
+
+
+apt-get install socket -y
+
+kubectl create ns mtr
+
+helm install stable/prometheus --namespace mtr --name prometheus --> kubectl get pods -n mtr
+
+helm install stable/grafana --namespace mtr --name grafana
+
+helm install stable/grafana  --namespace monitoring  --name grafana
+
+
+export POD_NAME=$(kubectl get pods --namespace monitoring -l "app=grafana,release=grafana" -o jsonpath="{.items[0].metadata.name}")
+kubectl --namespace monitoring port-forward $POD_NAME 3000
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    kubernetes.io/name: monitoring-grafana
+  name: grafana-np
+  namespace: mtr
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+    targetPort: 3000
+  selector:
+    app: grafana
+    pod-template-hash: 5666d8f5df
+    release: grafana
+
+
+
+export POD_NAME=$(kubectl get pods --namespace mtr -l "app=grafana,release=grafana" -o jsonpath="{.items[0].metadata.name}")
+
+deploy svc to expose node port
+
+kubectl get secret --namespace mtr grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+
+expose prothesus sesrver through node port
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    kubernetes.io/name: monitoring-grafana
+  name: prometheus-np
+  namespace: mtr
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+    targetPort: 9090
+  selector:
+    app: prometheus
+    chart: prometheus-10.1.0
+    component: server
+    heritage: Tiller
+    pod-template-hash: 6c4bdff867
+    release: prometheus
+
+
+prometheus    minikube1--->34.230.81.146:30901  34.230.43.9:31885
+
+
+
+
+helm install stable/grafana -f values.yml --namespace monitoring --name grafana

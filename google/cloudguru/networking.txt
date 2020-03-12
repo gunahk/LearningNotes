@@ -3,16 +3,16 @@ Load Balencer
 System design
 
 unicast	: only one unique ip addres to send(ec2)
-Anycast : Many ip adredd to 
+Anycast : Many ip adress to be send ( load balencer having many ec2 ip adress) 
 
-premieum tier --> cold potato see image 
+premieum tier --> cold potato see image --> GCP network 
 
 
 VPC
 =======
-subnets --> Automatic 2.Custom
+subnets --> 1.Automatic			2.Custom
 
-Automatic --> if any now zone is added then the 
+Automatic --> if any now zone is added then the google will go add new subnets to vpc
 
 firewallRules
 ===============

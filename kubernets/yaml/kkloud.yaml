@@ -1,0 +1,192 @@
+Secret Name: drupal-mysql-secret
+Secret: MYSQL_ROOT_PASSWORD=root_password
+Secret: MYSQL_DATABASE=drupal-database
+Secret: MYSQL_USER=root
+
+
+
+Secret Name: drupal-mysql-secret
+Secret: MYSQL_ROOT_PASSWORD=root_password
+Secret: MYSQL_DATABASE=drupal-database
+Secret: MYSQL_USER=root
+
+
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: drupal-mysql-secret
+type: Opaque
+data:
+  MYSQL_ROOT_PASSWORD: cm9vdF9wYXNzd29yZA==
+  MYSQL_DATABASE: ZHJ1cGFsLWRhdGFiYXNl
+  MYSQL_USER: ZHJ1cGFsLWRhdGFiYXNl
+
+
+echo -n "root" | base64
+
+master $ cat > drupal-mysql-pv.yaml
+  ---
+  apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+   name: drupal-mysql-pv
+  spec:
+   accessModes: [ “ReadWriteOnce” ]
+   capacity:
+    storage: “5Gi”
+   hostPath:
+    path: /drupal-mysql-data
+
+Volume Name: drupal-mysql-pv
+Storage: 5Gi
+Access modes: ReadWriteOnce
+
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: drupal-mysql-pv
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /drupal-mysql-data
+
+Claim Name: drupal-mysql-pvc
+Storage Request: 5Gi
+Access modes: ReadWriteOnce
+
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: drupal-mysql-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+
+
+
+Name: drupal-mysql
+Replicas: 1
+Image: mysql:5.7
+Deployment Volume uses PVC : drupal-mysql-pvc
+Volume Mount Path: /var/lib/mysql, subPath: dbdata
+Deployment: 'drupal-mysql' running
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: drupal-mysql
+  labels:
+    app: drupal-mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: 
+        image: mysql:5.7
+        volumeMounts:
+        - name: volume
+          mountPath: /var/lib/mysql
+          subPath: dbdata
+      volumes:
+      - name: volume
+        persistentVolumeClaim:
+          claimName: drupal-mysql-pvc  
+        secret:
+          secretName: drupal-mysql-secret
+
+
+              volumeMounts:
+    - name: secret-volume
+      readOnly: true
+      mountPath: "/etc/secret-volume"
+
+
+        volumes:
+  - name: secret-volume
+    secret:
+      secretName: dotfile-secret
+
+
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: drupal
+  labels:
+    app: drupal
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: drupal
+  template:
+    metadata:
+      labels:
+        app: drupal
+    spec:
+      volumes:
+      - name: volume1
+        persistentVolumeClaim:
+          claimName: drupal-pvc  
+
+      - name: volume
+        persistentVolumeClaim:
+          claimName: drupal-mysql-pvc  
+      Container:
+        image: drupal:8.6 
+        volumeMounts:
+        - name: volume2
+          mountPath: /var/www/html/modules
+          subPath: modules
+        - name: volume3
+          mountPath: /var/www/html/profiles
+          subPath: profiles
+        - name: volume4
+          mountPath: /var/www/html/sites
+          subPath: sites
+        - name: volume4
+          mountPath: /var/www/html/themes
+          subPath: themes
+      initContainer:
+        image: drupal:8.6 
+        volumeMounts:
+        - name: volume1
+          mountPath: /data
+          Command: [ "/bin/bash", "-c" ]
+          command: [ "sh", "-c", "while [ true ]; do echo 'Hello'; sleep 10; done | tee -a /logs/hello.txt" ]
+            Args: 
+              - cp -r /var/www/html/sites/ /data/
+              - chown www-data:www-data /data/ -R 
+
+
+Deployment has an initContainer, name: 'init-sites-volume'
+initContainer 'init-sites-volume', image: drupal:8.6
+initContainer 'init-sites-volume', persistentVolumeClaim: drupal-pvc
+initContainer 'init-sites-volume', mountPath: /data
+initContainer 'init-sites-volume', Command: [ "/bin/bash", "-c" ], initContainer: Args: [ 'cp -r /var/www/html/sites/ /data/; chown www-data:www-data /data/ -R' ]
+Deployment 'drupal' uses correct pvc: drupal-pvc
+container: 'drupal', Volume mountPath: /var/www/html/modules, subPath: modules
+container: 'drupal', Volume mountPath: /var/www/html/profiles, subPath: profiles
+container: 'drupal', Volume mountPath: /var/www/html/sites, subPath: sites
+container: 'drupal', Volume mountPath: /var/www/html/themes, subPath: themes
+Deployment: "drupal" running
+Deployment: 'drupal' has label 'app=drupal'
+
+  

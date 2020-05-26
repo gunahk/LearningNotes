@@ -1,0 +1,16 @@
+*****if version is enablesd delete all the files of versioning to delete bucket
+
+s3-mfa-delete(only root user creats)
+======================
+pre- enable versioning
+
+mfa:
+  permanently delete object version
+  suspend version on bucket
+
+commnnd:
+  aws s3api put-bucket-versioning /
+    --bucket bucketname /
+    --versioning-configuration Status=Enabled /
+    MFADelete=Enabled --mfa /
+    "your-mfa-serial-number mfa-code"

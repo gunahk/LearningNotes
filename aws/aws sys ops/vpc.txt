@@ -1,0 +1,71 @@
+cidr range: ipciderrange.info (16 --> 28)
+
+private:
+
+10.0.0.0 --> 10.255.255.255 (10.0.0.0/8)
+172.16.0.0 --> 172.31.255.255 (172.16.0.0/12)
+192.162.0.0 --> 192.162.255.255  (192.168.0.0/16)
+
+*******add ipv6,ipv4 later
+
+
+0 --> network address
+1 --> vpc router
+2 --> aws provided dns
+3 --> reserved
+255 --> nertwork broadcast address
+
+
+NAT instances: must disasble ec2 flag sourece/ destination check (select instance setting)
+
+sg: 22,80,443 allow from ciderrange
+
+blasck hole: no igw, nat gw
+
+
+nat instance vs nat gateway
+===========================
+bandwidth 45 gbps(nat gw)
+
+enable dns Support
+enable dns hostname
+
+r53 private hosted zone must enable both
+
+egree only internet (Nat for ipv6)
+=================
+only for ipv6 ( default ipv6 ip address is all are public)
+
+NACL: everything deny
+
+
+epherable port (documents):
+	linux:			
+	windows:		
+	load balencer:
+
+
+Vpc Endpoints:
+	interface:  provison a eni ( private ip and a security group)
+	gateway:	provision a target and a route table(automatically), s3 and dynaomodb.
+
+flow logs: --> s3, cloud watch
+
+	vpc flow logs:
+	subnet logs:
+	eni logs:
+
+aws											office
+==========								=============
+										public ip, nat -t                            
+
+direct connect
+================
+vpn gw( 1 vpc )                        <----           direct connect
+
+use cases:
+	increse bandwidth
+	hybrid envs ( data center )
+
+multible vpc --> direct connect gateway --> many vpcs
+				=========================

@@ -1,0 +1,59 @@
+s3:
+  No Uppercase
+  NO Underscore
+  3-63 characters
+  Not an ip
+  start with lowercase or number
+
+
+objects:(5 TB)
+  key: value
+
+encryption:
+  *SSE-s3(AES-256)               serverside s3
+  *SSE-kms                       aws managed encryption, rotate
+  SSE-C                         clintside managed encryption
+  clintside encryption          encryption the object and put into the bucket
+
+
+
+
+object --> HTTPS + Header  ---> objects                --> s3 bucket
+                                s3 managed keys
+
+
+security
+============
+user: Iam
+Resource based: 
+  bucket policies: publi access, upload, cross account
+  object ACL
+  bucket ACL
+
+json:
+  resources buckets and objects
+  Actions
+  Effect
+  principal: account or user
+
+website:
+  <bucketname>.s3-website(. or -)<region>.amazonaws.com
+
+  403 error : acces denied not publicly access
+
+s3 cors:
+  request data from anather s3 bucket
+  limit the no of website request objects
+
+consisterncy:
+  read after write:   put --> 200 , get --> 200
+                      get --> 404 , put --> 200 , get --> 404 (because of cache )
+
+  Evatual consisterncy:
+    put --> 200 , put --> 200 , get --> 200 (older version)
+
+
+
+
+
+

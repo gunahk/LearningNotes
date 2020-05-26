@@ -1,0 +1,37 @@
+EBS : IO, size, Throuput
+
+Network Drive:
+
+4 types:
+
+GPS: Balemces price and performance   --> Boot volume		1 GB-16 TB burst IOPS 3k-16k
+		IOPS=3 * size
+
+IO1: High perforce SDD volumes,low latency,high throughput	4 GB-16 TB burst IOPS 16k-32k (64 k nitro)		
+
+ST1: 	low cost HDD volumes frequently acces 
+	though put instensive workloads 
+	streaming workloads
+
+SC1: less low cost HDD volumes frequently acces 
+
+I/O burst:
+
+burst credit time over time: I/O nedded when reqired --> to 3k ( > 1 TB)
+
+throughput = volume size * IOPs per GB * IOPs per Kb
+
+
+
+EBS snapshots: incrementel only change the blocks   ***************region wide not AZ
+		max: 1k 
+
+Encrpt unEncrpt volumes: from snapshot copy the snapshot with encrption 
+
+instance store --> good for buffer / cache/ temparaory ( high IOPs)     (only to a few instance types)
+		   data lost when reeboot  
+ 
+
+RAID : 	RAID 0: 
+	RAID 1: High Fault Tolerance,
+	RAID 3 4 : not recomded by AWS 

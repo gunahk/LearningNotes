@@ -1,0 +1,60 @@
+in k8 by default service will send to pods by its ip address 
+
+Ex:	 svc(myssvc)				-->dep(httpd)   
+	selecter app: myown			version: newer **
+						              app: myown
+    				          	-->dep(nginx)	
+						          		version: old   **
+					               	app: myown
+
+it will load balence between dep both httpd & nginx by there ip address.
+
+we cannot able to send traffic to the only dep(httpd) newer version so we move to istio . 
+we can able to route trafic to perticural dep by there lables (version: newer/old)
+
+we define in Destination Rules
+
+---
+kind: DestinationRule
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: my-svc
+  namespace: default
+spec:
+  host: my-svc   # name of svc that want to route (my-svc)
+  subsets:
+    - labels:
+        version: newer    # name as per tag in deployment
+      name: expermental   # name u want to assign to the destination
+    - labels:
+        version: older  # name as per tag in deployment
+      name: original    # name u want to assign to the destination
+---
+
+Now if we want to new verion we use name expermental and for old version  use original
+we define in VirtualService
+
+---
+kind: VirtualService
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: my-svc
+  namespace: default
+spec:
+  hosts:      # which incoming host are we applying the proxy rules to???
+    - my-svc # service name
+    route: # THEN
+    - destination:
+        host: my-svc
+        subset: expermental
+        weight: 10
+    route:
+    - destination:
+        host: my-svc
+        subset: original
+        weight: 90
+---
+by above VirtualService we can direct traffic 10 % to the expermental and 90 to original
+
+
+

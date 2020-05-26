@@ -1,0 +1,117 @@
+high avalilibilty
+
+
+vertical scaling: increse resources of instance
+
+horizonatal scaling: increase No of  instances
+
+Load Balencing: 
+
+  spread load across multible downstream instances
+  single point to the application
+  handle failure of the downstream instances
+  regular health check
+  ssl to websites
+  stickness with cookies(select LB --> )
+  high avalilibilty wih zones
+  separate public & private
+
+
+types: 
+  classic:
+  application: Layer7 http/https/websockets
+  network: Tcp directly see client ip
+
+
+fix ip to alb --> infront alb put nlb
+
+loadbalence prewarming: 
+  sudden increase in  traffic (10x) solution:
+    open support ticket with the aws:
+      - duration of traffic
+      - expected request per sec
+      - size of requests
+
+error codes:
+  succesfully: 200
+  client side error: 
+
+
+surgequelength: total no of requests or connections that are pending routing to the healty instances(scale out asg)
+spiloverquee: no of requests rejected because sergw que is full
+
+
+acess log:
+  stores in s3(Helpfull for compliance):
+    time
+    Client ip adderess
+    Latencies
+    request path
+    server response
+    trace path
+
+alb request header:
+  http request have trace id:
+    "X-AMzn-Trace-ID": logs for the distributed tracing platform
+
+error :
+  4xx: 
+    Client side error
+  5xx:
+    503: healty instances in each Azs --> HealtyHostCount in Cloud watch
+    504: keep-alive instances enabled, keep-alive is > idel timeout setting in loadbalencer
+
+
+autoscaling(free but cost for resources)
+==================================================================================================================
+******autoscaling to cloud watch metrics then rules is defined:
+  putmericapi
+  react to low/high vavlue
+  scaling policy
+
+autoscaling rules:
+  network in and out
+  cpu(average)
+  no of requests per loadbalencer
+  schedulecloud watch metrics
+
+
+healty checks:
+  ec2: in no file in ec2 mission still health check is healty in ASG but not in Targer groups
+  alb: so it is better to give healty check in alb if instances healty checks fails instances is terminates and creates new instance
+
+AZrebalence: launch new instance then terminates old instance
+  suspend launch instance:
+    wont lanch instance
+    wont terminates instance
+  suspend terminates:
+    launch the instance
+    wont terminate instance
+
+
+
+suspendterminatesL: 
+
+sacling process inn ASG:
+  launch
+  terminate
+  Health check
+  ReplaceUnhealty
+  AZrebalence
+  AlarmNotification
+  scheduleevents
+  AddtoLoadBalencer
+
+Lanching ec2 failure:(fail for 24 hours suspend the process)
+  had reached the desired instance
+  no sg, keypair
+
+asg cloudMetrics:
+  GroupMinSIze
+  GroupMaxSIze
+  GroupDesiredSIze
+  GroupInserviceInstances
+  GroupPendingInstances
+  GroupTerminatingInstances
+  GroupStandbyInstances
+  GroupTotalInstances

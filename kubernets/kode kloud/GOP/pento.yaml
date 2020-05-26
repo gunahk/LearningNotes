@@ -1,0 +1,103 @@
+#https://github.com/halverneus/static-file-server/blob/master/Dockerfile
+
+vi /etc/kubernetes/manifests/kube-apiserver.yaml --> ca-certificate.crt --> ca.crt
+vi /root/.kube/config --> port 6443
+kubectl uncordon node01
+
+kubectl edit deploy coredns -n kube-system --> coredns
+
+Create new PersistentVolume = 'data-pv'
+PersistentVolume = data-pv, accessModes = 'ReadWriteMany'
+PersistentVolume = data-pv, hostPath = '/web'
+PersistentVolume = data-pv, storage = '1Gi'
+
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: data-pv
+spec:
+  storageClassName: mylocalstorage
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/web"
+    type: DirectoryOrCreate
+
+Create new PersistentVolumeClaim = 'data-pvc'
+PersistentVolume = 'data-pvc', accessModes = 'ReadWriteMany'
+PersistentVolume = 'data-pvc', storage request = '1Gi'
+PersistentVolume = 'data-pvc', volumeName = 'data-pv
+
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: data-pvc
+spec:
+  storageClassName: mylocalstorage
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+
+Create a pod for fileserver, name: 'gop-fileserver'
+pod: gop-fileserver image: 'kodekloud/fileserver'
+pod: gop-fileserver mountPath: '/web'
+pod: gop-fileserver volumeMount name: 'data-store'
+pod: gop-fileserver persistent volume name: data-store
+pod: gop-fileserver persistent volume claim used: 'data-pvc'
+
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: gop-fileserver
+  labels:
+    app: gop
+spec:
+  volumes:
+    - name: data-store
+      persistentVolumeClaim:
+        claimName: data-pvc
+  
+  containers:
+    - name: fileserver
+      image: kodekloud/fileserver
+      ports:
+        - containerPort: 8080
+
+      volumeMounts:
+        - mountPath: /web
+          name: data-store
+
+
+
+New Service, name: 'gop-fs-service'
+Service name: gop-fs-service, port: '8080'
+Service name: gop-fs-service, targetPort: '8080'
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: gop-fs-service
+
+spec:
+  selector:
+    app: gop
+
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+      nodePort: 30097
+
+  type: NodePort
+
+
+code: Aksios Podo, ilon misas! Kesrio syt logis zobrie issa se ossyngnoti errars
+

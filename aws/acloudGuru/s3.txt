@@ -1,0 +1,93 @@
+User-->
+Group-->
+Role-->
+Policy-->
+
+
+what to do if billing goes above $10?????
+clouldwatch--> crate sns topic ---> to send notification to subscribed user
+
+s3--> simple storage service
+================================
+************secure,durable highly scable storage
+**size --> 0 to 5 TB
+**universalName
+**s3 url-->
+
+key(nameOfObject),value(SequenceOfBytes),versionId(Versions),MetaData(DataAboutStorage)
+
+dataConsistency(99.99(11 9 s) durability for s3 secure(Access Control list and Bucket policy))
+================
+
+******secure(Access Control list and Bucket policy)
+
+Read After Write--> after writing you can able to read
+OverRide Puts and Delete(new data is updating) ---> can take some time to propogate
+
+Storage
+=========
+Tired Storage
+Lifecycyle Management
+Versioning
+Encryption
+MFA Delete---> to delete object
+
+
+s3 -storage Classes(Object level,Bucket Level)
+=====================================================
+s3-Standerd ----> Default storage
+s3-IA(InfrequentAccess) ---> accessed less frquently cost for retrive data
+s3 Oneone-IA(RRS{Reduced Redundency}) ---> only access to one rergion(s3-Ia)
+s3 Intelligent Tiering -->optimize costs automatically moving data to most cost affective without operation needed
+s3 Glacierr --> (min to hours retrive data), Archiev the data cheaper
+s3 Glacier Deep -->  (12 hours), Deep Archiv the data much much cheper
+
+Charged
+================== 
+Storage
+Request
+StorageMangement
+Data Transfer
+Transfer Acceleration   (fast,easy,secure over long distances,Uses CloudFront Edge Locations)
+Cross region Replication
+
+s3
+===
+1.NameAndRegion--> name,Region,CopyFromOtherBucket
+2.Configure-->Versioning,
+3.setPermissions--->BlockPublicAccess
+4.review
+
+s3Security
+===========
+encryption (https/ssl)
+1.Encrption At rest(Serrver Side Encyption-SSE-KMS)
+2.Encrption At Client(Serrver Side Encyption customer Provided keys-->SSE-C)
+3.Aws Key Managed Service (SSE-KMs)
+
+version
+===============
+versionig--->Cannot be disablead only Suspended
+Version MFA Delete Capability 
+v1--> make public,Upload V2,v1--> only display,v2 not maken public
+delete object ---> older version is present
+Integrate LifeCycle Rules
+
+lifeCycleMnagement(BucketNmae--->Mnagement---->LifeCycleRules)
+============================
+
+1.NameAndScope--->RuleNAme,TAg
+2.Transition---->1.Current Version,2.Previous Version--->transfers to desired (Days After Creation)
+3.Expiration---->both Current and Previos --->delete after certen data 
+
+Cross Region(Version enabled) {entire Bucket or Based on Tags Ojects}
+===========
+****doesnot delete object in replicated regions
+
+BucketName-->Management--->Replication--->AddRule
+***Change the storage from the replicated objects
+***Change the object ownership to destination bucket name
+
+
+
+

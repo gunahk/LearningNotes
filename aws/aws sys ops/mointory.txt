@@ -1,0 +1,61 @@
+cloud watch
+=====
+dimension --> atribute of a metric
+10 dimension per metrics
+
+
+
+metric resolution (time):PutMetricData
+	standard: 1 min
+	high resolution: 1 sec
+
+Dashboards are global(differnt regions)
+
+pricing:
+	3 dahboards( up to 50 metrics)
+	$3 dashboard/month
+
+cloudwatch logs:
+	log groups
+	log streams: which application, ecs
+
+	log expiration policy ( 30 days then send to s3)
+
+cloudwatch logs --> metric filter and insights( strucerd language query logs to cloud watch dashboard)
+
+cloudwatch alaars:
+	max,min, value, string
+
+	Alarm states:
+		ok: everything is ok
+		insufficient: resource delete
+		alarm
+	period:
+		length to evalute metric
+		high reslotion 10 - 30 sec
+
+Cloud watch events:
+	sourece + rule --> Target
+
+	schedule: cron jobs
+
+	event patreen: ec2 stoped
+
+
+
+cloud trail    --> s3
+============
+
+governence, compliance and audit
+
+show 90 days activity
+
+cloud trail: create a seperate train on resource on read,write
+
+aws config
+===========
+auditing and complice 
+record configuration over time
+record complicec over time
+
+

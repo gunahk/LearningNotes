@@ -1,0 +1,132 @@
+
+========================================================================================
+ec2 shut down behaviour is enable (After logging into ec2 sudo shutdown now)
+	1. termination is enable --> shutdown
+	1. termination is disable --> shutdown
+=========================================================================================
+
+
+
+
+Ec2 Launch Troubleshoting
+==============================
+#instanceLimitExceeded error ---> max instances in region (default: 20)  
+	-->launch in other region
+
+aws ec2 run-insrtances --instance-type t2.micro --image-id ami-XXXX --count 19
+========================================================================================
+#insufficientInstanceCapacity --> aws does not meet On-demand capacity.
+     -->1. wait
+	2. request one by one
+	3. request for different instances  
+==========================================================================================
+#instancesTerminatesImmediately 
+
+	1. Ebs Volume limit
+	2. EBs Snapshot corrupt
+	3. Ebs encrypted (KMs Decryption key not found)
+	4. backed ami (correpted or missing)
+		
+	resoltion --> instance-->describtion tab(state transion region, state  transition message)
+
+==============================================================================================
+
+
+
+
+
+ec2 ssh trobleshoot
+===============
+unproteted key --> chmod 400 *.key
+Host Key not found --> username of ec2
+
+reasons not connecting(ideal few secs) --> sg, heavy load on cpu
+
+
+
+
+
+
+ec2 Launch type
+=========================
+Ondemand Instances:			short workload, predictable pricing
+Reserved Instances:			long workloads(>= 1 year, specific instance type)							75 % discount on Ondemand instances (ex databases)
+Convertable Reserved: 	long workloads with flexible instances
+scheduled reserved: 		lond workloads with time window reserved
+spot instances: 				short workloads with cheap , loose instances          				90% discount on Ondemand instances
+Dedicated Instances: 		no other customer share the hardware												share hardware with other instances within same account,no control on placement
+Dedicated host: 				no other customer share the pysical server(3 year contract)
+
+
+
+
+
+instances type
+===================
+
+R --> lot of ram
+c --> lot of cpu
+m --> general/ web app
+I --> good I/o instances storage( Databases )
+G --> need GPU --> Video streming/ Machine learning
+
+T2/t3 --> burstable instances 							(brust credits)
+t2/t3 --> unlimited unlimited burstable
+
+
+refer: https://www.ec2instances.info/
+
+
+Instances ami(specific region)
+=====================
+preconfigured software, security(Monitor, Ldap), faster boot time( no need of boot data)
+
+******ami storege in s3 
+
+
+first 50 tb --> $0.0023 GB
+next 450 tb --> $0.0.0022 GB
+
+
+donot trust ami --> malware, unwanted software
+
+
+share
+=========
+1. other account, region
+2. share Ani does not affecct the ownership
+3. A can share to B account, B  account can share to c as a ownership of B
+4.B cannot Ami to C if EBS encrypted & Snapshot is shared from A to B --> but B can launch instance can can share to the C
+5.canot copy the assciote billing prodoct AMi (windows & AMI marketprice). to other account,region
+
+Elastic IPs
+==============
+assciote with only public IPs
+
+public Ips will get the Elastic Ips only
+
+
+CloudWatdch(Hypervisor Metrics)
+============
+Basic (5 min), Detail(1 min) 
+
+Metrics: CPU, Network, Disk, and status 
+
+
+	CPU: Cpu + Credit Usage/Balance
+
+	Network: Network in and out
+
+	status cheak: instances, system
+
+Custom Metrics: Ram, Application Metrics.
+
+
+Only the below services provide Root level access
+- EC2
+- Elastic Beanstalk
+- Elastic MapReduce – Master Node
+- Opswork
+
+
+

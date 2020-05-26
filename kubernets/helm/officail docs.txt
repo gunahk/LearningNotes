@@ -1,0 +1,45 @@
+###########https://helm.sh/docs/intro/using_helm/
+
+helm3
+==========================
+type: application/library
+adding secrets and config maps, no tiller in helm 3 version, Rbac is appliead as per KubeConfig.
+in single cluster we can install multible helm with different release name
+
+helm search hub stable/jenkins --> seraches the helm hub
+********************************
+helm search repo stable/jenkins --> seraches the helm local repo u added by helm repo add
+helm repo <add/remove> <nome of ur assined name> <url>
+********************************
+helm install --> to install package (by default create new release name, ur name then --generate-name)
+
+helm status happy-panda --> to get status of helm pckage
+
+helm show values --> show the default values of chart
+ change the values by
+
+$ echo '{mariadbUser: user0, mariadbDatabase: user0db}' > config.yaml
+$ helm install -f config.yaml stable/mariadb --generate-name
+****************************
+	--values (or -f): Specify a YAML file with overrides. This can be specified multiple times and the rightmost file will take precedence
+--set: Specify overrides on the command line.
+*******************************
+
+--set name=value1\,value2 ---> \ is escape caracter   --> name: "value1,value2"
+
+upgrade && rollback(Install/Upgrade/Rollback/uninstall)
+==================
+helm upgrade -f panda.yaml happy-panda stable/mariadb  --> providing yaml files 
+ helm get values happy-panda --> to checkn updated values
+helm rollback [RELEASE] [REVISION] ---> helm rollback happy-panda 1
+
+helm uninstall --keep-history --> helm list --uninstalled
+
+
+===============================================================================================
+helm create deis-workflow
+
+As you edit your chart, you can validate that it is well-formed by running helm lint.
+
+helm package deis-workflow --> to package the helm
+

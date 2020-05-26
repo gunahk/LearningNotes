@@ -1,0 +1,13 @@
+Drak release
+========================
+we can able to creat a new release, and we can able to login into new release can test and confirm the release has no bugs and then we can continue to  new release.
+
+
+we can do in many ways
+1. user   --> matching exact user 
+2. header --> be sure header be forwarded to all microservices in the kubernets
+
+
+
+webapp---->svc-->	app app-->svc-->	micro -->svc-->		micro    
+head: own		head: own  	  	head: own		head: own

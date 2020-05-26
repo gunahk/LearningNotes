@@ -1,0 +1,23 @@
+service mesh
+==========================
+Its requirements can include discovery, load balancing, failure recovery, metrics, and monitoring. 
+
+Istio makes it easy to create a network of deployed services with load balancing, service-to-service authentication, monitoring, and more, with few or no code changes in service code
+
+
+**Automatic load balancing for HTTP, gRPC, WebSocket, and TCP traffic.
+
+**Fine-grained control of traffic behavior with rich routing rules, retries, failovers, and fault injection.
+
+**A pluggable policy layer and configuration API supporting access controls, rate limits and quotas.
+
+**Automatic metrics, logs, and traces for all traffic within a cluster, including cluster ingress and egress.
+
+**Secure service-to-service communication in a cluster with strong identity-based authentication and authorization.
+
+
+Traffic Management:	 circuit breakers, timeouts, and retries
+
+security:	security at the application level,manages authentication, authorization, and encryption of service communication at scale. 
+
+Observability:	

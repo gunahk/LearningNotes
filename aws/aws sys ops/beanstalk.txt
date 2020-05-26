@@ -1,0 +1,45 @@
+elastic bean stalk(have security groups)
+=======================================================================
+Code ---> deploy --> RUN
+
+
+
+asg+ LB = elastic bean stalk
+
+three architecture models:
+  single instance deployment
+  Lb + asg (production)
+  asg (non web apps) no lb
+
+
+create application
+                        --> upload version(alias) --> relese environment
+create envs for testing
+
+
+** internally uses cloudformnation to deploy elasticbeanstalk
+
+
+R53: alias or cName
+
+not responsible for patching
+
+deployment modes
+========================================================================================================================
+AllAtOnce
+RollingUpdate (bukets: 2)
+RollingBatch with add batch     --> additional cost
+Immutiable --> terminate old/new instance
+
+
+blue/ green --> with r53 weighted traffic --> swap urls:
+  by default not present but after creating new environment we can swap the environments
+
+elastic bean stalk(ecc2), resloves app dependrncy (Take a long time to deploy):
+  reslove issue with Golden AMI
+
+
+GoldenAmi(packages):
+  OS
+  app
+  company wide s/w

@@ -4,7 +4,7 @@ For example:
 - to disable batch/v1,set --runtime-config=batch/v1=false 
 - to enable batch/v2alpha1,set 
 
- kubectl api-versions |grep batch --> to list all version
+ kubectl api-versions | grep batch --> to list all version
  kubectl api-versions
 
 *****The CRD can be either namespaced or cluster-scoped, as specified in the CRD’s scope field

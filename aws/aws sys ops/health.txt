@@ -1,0 +1,44 @@
+154
+
+service health Dashboard
+=======================
+
+
+
+
+
+AWs Organaizayion
+======================
+master account --> n member accoubts
+
+consolitade bills with pricing benifits
+
+api availble to automate aws account creation
+
+OU(organazation unit) & serviceControl Policy
+=================================================
+
+							root
+							  ||
+							  ||
+							  ||
+			OU =================================ou
+			==                                  ===
+			 ||
+			 ||
+			 0u ====aws account
+			 ===
+			 ||
+			 ||
+			 aws acounts
+
+can next ou wiyh in ou
+
+*******apply service policy to ou or aws account
+
+SCP on OU:
+	permit/Deny access to aws services
+	scp same on IAM (filter)
+
+aws service Catalog
+======================

@@ -1,0 +1,129 @@
+Tyro
+========
+
+
+Storage Request: 1Gi
+Access modes: ReadWriteMany
+pvc name = jekyll-site, namespace development
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jekyll-site
+  namespace: development
+spec:
+  storageClassName: mylocalstorage
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+
+pod: 'jekyll' has an initContainer, name: 'copy-jekyll-site', image: 'kodekloud/jekyll'
+initContainer: 'copy-jekyll-site' command: [ "jekyll", "new", "/site" ] (command to run: jekyll new /site)
+pod: 'jekyll', initContainer: 'copy-jekyll-site', mountPath = /site
+pod: 'jekyll', initContainer: 'copy-jekyll-site', volume name = site
+#pod: 'jekyll', container: 'jekyll', volume name = site
+#pod: 'jekyll', container: 'jekyll', mountPath = /site
+#pod: 'jekyll', container: 'jekyll', image = kodekloud/jekyll-serve
+pod: 'jekyll', uses volume called 'site' with pvc = 'jekyll-site'
+#pod: 'jekyll' uses label 'run=jekyll'
+
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: jekyll
+  labels:
+    run: jekyll
+spec:
+  volumes:
+    - name: site
+      persistentVolumeClaim:
+        claimName: jekyll-site
+  
+  containers:
+    - name: jekyll
+      image: kodekloud/jekyll-serve
+      volumeMounts:
+        - mountPath: /site
+          name: site
+
+  initContainers:
+    - name: 'copy-jekyll-site'
+      image: kodekloud/jekyll
+      command:
+        [ "jekyll", "new", "/site" ] 
+      volumeMounts:
+        - mountPath: /site
+          name: site
+
+Service 'jekyll' uses targetPort: '4000' , namespace: 'development'
+Service 'jekyll' uses Port: '8080' , namespace: 'development'
+Service 'jekyll' uses NodePort: '30097' , namespace: 'development'
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: jekyll
+  namespace: development
+spec:
+  selector:
+    run: jekyll
+
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 4000
+      nodePort: 30097
+
+  type: NodePort
+
+'developer-role', should have all(*) permissions for services in development namespace
+'developer-role', should have all permissions(*) for persistentvolumeclaims in development namespace
+'developer-role', should have all(*) permissions for pods in development namespace
+
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: development
+  name: developer-role
+rules:
+- apiGroups: [""] # "" indicates the core API group
+  resources: ["services","pods","persistentVolumeClaim"]
+  verbs: ["*"]
+
+
+create rolebinding = developer-rolebinding, role= 'developer-role', namespace = development
+rolebinding = developer-rolebinding associated with user = 'drogo'
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: developer-rolebinding
+  namespace: development
+subjects:
+- kind: User
+  name: drogo # "name" is case sensitive
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role 
+  name: developer-role # this must match the name of the Role or ClusterRole you wish to bind to
+  apiGroup: rbac.authorization.k8s.io
+
+
+Certificate and key pair for user drogo is created under /root. Add this user to kubeconfig = /root/.kube/config, User = drogo, client-key = /root/drogo.key client-certificate = /root/drogo.crt
+Create a new context in the default config file (/root/.kube/config) called 'developer' with user = drogo and cluster = kubernetes
+
+openssl genrsa -out /root/drogo.key
+openssl req -new -key /root/drogo.key -out /root/drogo.csr 
+openssl x509 -req -in /root/drogo.csr -CA /etc/kubernetes/pki/ca.crt -CAkey /etc/kubernetes/pki/ca.key -CAcreateserial -out /root/drogo.crt -days 500
+
+kubectl config set-credentials drogo --client-certificate=/root/drogo.crt  --client-key=/root/drogo.key
+kubectl config set-context developer --cluster=kubernetes --namespace=development --user=drogo
+
+kubectl config use-context developer
+
+code: Zyhys perzys stepagon schedulara Oño resarc, se poda lys qelitsos sikagon

@@ -1,0 +1,34 @@
+refer ec2-elb code once
+
+to iterate all values -->  count.index values 
+
+aws_instance.web[count.index].id   after creating ec2 s iterate all values
+or aws_instance.web.*.id 
+
+#get VPC Subnet
+
+data "aws_vpc" "task-vpc" {
+  default = true 
+}
+
+data "aws_subnet_ids" "example" {
+  vpc_id = data.aws_vpc.task-vpc.id
+  }
+
+output "subnet_cidr_blocks" {
+  value =  data.aws_subnet_ids.example.ids 
+}
+
+output "subnet_cidr_blocks" {
+  value = [for s in data.aws_subnet.example : s.id]
+}
+
+
+retrive VPC all subnets and VPC
+
+subnets            = [for s in data.aws_subnet.example : s.id ]
+
+terrform console --> to check varibles . in that that
+terraform fmt -----> to set formate of variables
+teraform validate --> to check syntex
+terraform apply --auto-approve  ---> with out YES

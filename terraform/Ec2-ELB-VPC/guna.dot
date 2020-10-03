@@ -1,0 +1,40 @@
+digraph {
+	compound = "true"
+	newrank = "true"
+	subgraph "root" {
+		"[root] aws_alb_target_group_attachment.test (expand)" [label = "aws_alb_target_group_attachment.test", shape = "box"]
+		"[root] aws_instance.web (expand)" [label = "aws_instance.web", shape = "box"]
+		"[root] aws_lb.task-alb (expand)" [label = "aws_lb.task-alb", shape = "box"]
+		"[root] aws_lb_listener.front_end (expand)" [label = "aws_lb_listener.front_end", shape = "box"]
+		"[root] aws_lb_target_group.task-alb-tg (expand)" [label = "aws_lb_target_group.task-alb-tg", shape = "box"]
+		"[root] aws_security_group.sg_ec2 (expand)" [label = "aws_security_group.sg_ec2", shape = "box"]
+		"[root] aws_security_group.sg_elb (expand)" [label = "aws_security_group.sg_elb", shape = "box"]
+		"[root] data.aws_subnet.example (expand)" [label = "data.aws_subnet.example", shape = "box"]
+		"[root] data.aws_subnet_ids.example (expand)" [label = "data.aws_subnet_ids.example", shape = "box"]
+		"[root] data.aws_vpc.task-vpc (expand)" [label = "data.aws_vpc.task-vpc", shape = "box"]
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"]" [label = "provider[\"registry.terraform.io/hashicorp/aws\"]", shape = "diamond"]
+		"[root] aws_alb_target_group_attachment.test (expand)" -> "[root] aws_instance.web (expand)"
+		"[root] aws_alb_target_group_attachment.test (expand)" -> "[root] aws_lb_target_group.task-alb-tg (expand)"
+		"[root] aws_instance.web (expand)" -> "[root] aws_security_group.sg_ec2 (expand)"
+		"[root] aws_instance.web (expand)" -> "[root] data.aws_subnet_ids.example (expand)"
+		"[root] aws_lb.task-alb (expand)" -> "[root] aws_security_group.sg_elb (expand)"
+		"[root] aws_lb.task-alb (expand)" -> "[root] data.aws_subnet.example (expand)"
+		"[root] aws_lb_listener.front_end (expand)" -> "[root] aws_lb.task-alb (expand)"
+		"[root] aws_lb_listener.front_end (expand)" -> "[root] aws_lb_target_group.task-alb-tg (expand)"
+		"[root] aws_lb_target_group.task-alb-tg (expand)" -> "[root] data.aws_vpc.task-vpc (expand)"
+		"[root] aws_security_group.sg_ec2 (expand)" -> "[root] aws_security_group.sg_elb (expand)"
+		"[root] aws_security_group.sg_elb (expand)" -> "[root] data.aws_vpc.task-vpc (expand)"
+		"[root] data.aws_subnet.example (expand)" -> "[root] data.aws_subnet_ids.example (expand)"
+		"[root] data.aws_subnet_ids.example (expand)" -> "[root] data.aws_vpc.task-vpc (expand)"
+		"[root] data.aws_vpc.task-vpc (expand)" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"]"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] aws_alb_target_group_attachment.test (expand)"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] aws_lb_listener.front_end (expand)"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] output.subnet_cidr_blocks (expand)"
+		"[root] output.subnet_cidr_blocks (expand)" -> "[root] data.aws_subnet.example (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_alb_target_group_attachment.test (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_lb_listener.front_end (expand)"
+		"[root] root" -> "[root] meta.count-boundary (EachMode fixup)"
+		"[root] root" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)"
+	}
+}
+
